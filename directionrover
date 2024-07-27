@@ -1,0 +1,70 @@
+public enum Direction {
+    N {
+        @Override
+        public void move(Rover rover) {
+            rover.setPosition(rover.getX(), rover.getY() + 1);
+        }
+
+        @Override
+        public Direction left() {
+            return W;
+        }
+
+        @Override
+        public Direction right() {
+            return E;
+        }
+    },
+    E {
+        @Override
+        public void move(Rover rover) {
+            rover.setPosition(rover.getX() + 1, rover.getY());
+        }
+
+        @Override
+        public Direction left() {
+            return N;
+        }
+
+        @Override
+        public Direction right() {
+            return S;
+        }
+    },
+    S {
+        @Override
+        public void move(Rover rover) {
+            rover.setPosition(rover.getX(), rover.getY() - 1);
+        }
+
+        @Override
+        public Direction left() {
+            return E;
+        }
+
+        @Override
+        public Direction right() {
+            return W;
+        }
+    },
+    W {
+        @Override
+        public void move(Rover rover) {
+            rover.setPosition(rover.getX() - 1, rover.getY());
+        }
+
+        @Override
+        public Direction left() {
+            return S;
+        }
+
+        @Override
+        public Direction right() {
+            return N;
+        }
+    };
+
+    public abstract void move(Rover rover);
+    public abstract Direction left();
+    public abstract Direction right();
+}
