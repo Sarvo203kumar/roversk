@@ -1,0 +1,75 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class GridComponent {
+    public void add(GridComponent component) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void remove(GridComponent component) {
+        throw new UnsupportedOperationException();
+    }
+
+    public GridComponent getChild(int i) {
+        throw new UnsupportedOperationException();
+    }
+
+    public abstract boolean hasObstacle(int x, int y);
+}
+
+public class Grid extends GridComponent {
+    private int width, height;
+    private List<GridComponent> components = new ArrayList<>();
+
+    public Grid(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    @Override
+    public void add(GridComponent component) {
+        components.add(component);
+    }
+
+    @Override
+    public void remove(GridComponent component) {
+        components.remove(component);
+    }
+
+    @Override
+    public GridComponent getChild(int i) {
+        return components.get(i);
+    }
+
+    @Override
+    public boolean hasObstacle(int x, int y) {
+        for (GridComponent component : components) {
+            if (component.hasObstacle(x, y)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+}
+
+public class Obstacle extends GridComponent {
+    private int x, y;
+
+    public Obstacle(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    @Override
+    public boolean hasObstacle(int x, int y) {
+        return this.x == x && this.y == y;
+    }
+}
