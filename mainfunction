@@ -1,0 +1,33 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        // Define grid size
+        Grid grid = new Grid(10, 10);
+
+        // Add obstacles
+        grid.add(new Obstacle(2, 2));
+        grid.add(new Obstacle(3, 5));
+
+        // Initialize the rover with starting position and direction
+        Rover rover = new Rover(0, 0, Direction.N, grid);
+
+        // Define the commands
+        List<Command> commands = new ArrayList<>();
+        commands.add(new MoveCommand(rover));
+        commands.add(new MoveCommand(rover));
+        commands.add(new TurnRightCommand(rover));
+        commands.add(new MoveCommand(rover));
+        commands.add(new TurnLeftCommand(rover));
+        commands.add(new MoveCommand(rover));
+
+        // Execute the commands
+        for (Command command : commands) {
+            command.execute();
+        }
+
+        // Print the final status
+        System.out.println(rover.getStatus());
+    }
+}
